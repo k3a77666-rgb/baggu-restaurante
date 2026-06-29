@@ -1,8 +1,0 @@
-C:\Users\Usuario\Desktop\BagguWeb\BagguWeb\obj\Debug\net8.0\rpswa.dswa.cache.json
-C:\Users\Usuario\Desktop\BagguWeb\BagguWeb\obj\Debug\net8.0\BagguWeb.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\Usuario\Desktop\BagguWeb\BagguWeb\obj\Debug\net8.0\BagguWeb.AssemblyInfoInputs.cache
-C:\Users\Usuario\Desktop\BagguWeb\BagguWeb\obj\Debug\net8.0\BagguWeb.AssemblyInfo.cs
-C:\Users\Usuario\Desktop\BagguWeb\BagguWeb\obj\Debug\net8.0\BagguWeb.csproj.CoreCompileInputs.cache
-C:\Users\Usuario\Desktop\BagguWeb\BagguWeb\obj\Debug\net8.0\BagguWeb.MvcApplicationPartsAssemblyInfo.cache
-C:\Users\Usuario\Desktop\BagguWeb\BagguWeb\obj\Debug\net8.0\BagguWeb.RazorAssemblyInfo.cache
-C:\Users\Usuario\Desktop\BagguWeb\BagguWeb\obj\Debug\net8.0\BagguWeb.RazorAssemblyInfo.cs
