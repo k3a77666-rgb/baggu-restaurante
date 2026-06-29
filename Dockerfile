@@ -3,7 +3,7 @@ FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
 # ✅ COPIAR DESDE LA CARPETA CORRECTA
-COPY BagguWeb/BagguWeb.csproj .
+COPY Users\Usuario\Desktop\BagguWeb> .
 RUN dotnet restore
 
 COPY BagguWeb/ .

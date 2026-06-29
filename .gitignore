@@ -12,3 +12,14 @@ echo "*.publishsettings" >> .gitignore
 echo "node_modules/" >> .gitignore
 echo "*.log" >> .gitignore
 echo "*.tmp" >> .gitignore
+echo "*.cache" >> .gitignore
+echo "*.csproj.user" >> .gitignore
+echo "*.swp" >> .gitignore
+echo "*.swo" >> .gitignore
+echo "*.pid" >> .gitignore
+echo "*.seed" >> .gitignore
+echo "*.sqlite" >> .gitignore
+echo "*.sqlite3" >> .gitignore
+echo "Thumbs.db" >> .gitignore
+echo "Desktop.ini" >> .gitignore
+echo "render.yaml" >> .gitignore
