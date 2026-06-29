@@ -2,11 +2,12 @@
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
 
-# ✅ COPIAR DESDE LA CARPETA CORRECTA
-COPY Users\Usuario\Desktop\BagguWeb> .
+# ✅ COPIAR DESDE LA RAÍZ (sin carpeta BagguWeb)
+COPY *.csproj .
 RUN dotnet restore
 
-COPY BagguWeb/ .
+# ✅ COPIAR TODOS LOS ARCHIVOS
+COPY . .
 RUN dotnet publish -c Release -o /app/publish
 
 # Etapa 2: Ejecución
@@ -16,4 +17,4 @@ COPY --from=build /app/publish .
 
 ENV ASPNETCORE_URLS=http://+:10000
 
-ENTRYPOINT ["dotnet", "BagguWeb.dll"]
+ENTRYPOINT ["dotnet", "baggu_restaurante.dll"]
