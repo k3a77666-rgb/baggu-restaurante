@@ -1,0 +1,210 @@
+﻿@using BagguWeb.Models
+@{
+    ViewData["Title"] = "Fidelidad";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var clientes = (List<ClienteFidelidad>)ViewBag.Clientes;
+    dynamic stats = ViewBag.Stats;
+}
+
+<div class="admin-wrapper">
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-title">👨‍🍳 ADMINISTRACIÓN</div>
+        <nav class="admin-nav">
+            <a href="/Admin?tab=mesas" class="admin-nav-link">📋 Mesas</a>
+            <a href="/Admin?tab=cola" class="admin-nav-link">👥 Cola</a>
+            <a href="/Admin?tab=reservas" class="admin-nav-link">📅 Reservas</a>
+            <a href="/Admin?tab=platos" class="admin-nav-link">🍽️ Platos</a>
+            <a href="/Admin?tab=stats" class="admin-nav-link">📊 Stats</a>
+            <a href="/Fidelidad" class="admin-nav-link active">⭐ Fidelidad</a>
+        </nav>
+    </aside>
+
+    <div class="admin-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h2 class="admin-section-title" style="margin-bottom: 0;">⭐ SISTEMA DE FIDELIDAD</h2>
+            <button class="btn btn--gold" onclick="abrirModalCliente()" style="padding: 10px 20px;">
+                ➕ Nuevo cliente
+            </button>
+        </div>
+
+        <!-- Estadísticas -->
+        <div class="stats-grid" style="margin-bottom: 20px;">
+            <div class="stat-card">
+                <span class="stat-icon">👥</span>
+                <span class="stat-value">@stats.TotalClientes</span>
+                <span class="stat-label">Total Clientes</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🥉</span>
+                <span class="stat-value">@stats.Bronce</span>
+                <span class="stat-label">Bronce</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🥈</span>
+                <span class="stat-value">@stats.Plata</span>
+                <span class="stat-label">Plata</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">🥇</span>
+                <span class="stat-value">@stats.Oro</span>
+                <span class="stat-label">Oro</span>
+            </div>
+            <div class="stat-card">
+                <span class="stat-icon">⭐</span>
+                <span class="stat-value">@stats.PuntosTotales</span>
+                <span class="stat-label">Puntos Totales</span>
+            </div>
+        </div>
+
+        @if (TempData["Exito"] != null)
+        {
+            <div class="alert alert--success">@TempData["Exito"]</div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert--error">@TempData["Error"]</div>
+        }
+
+        <table class="admin-table">
+            <thead>
+                <tr>
+                    <th>NOMBRE</th>
+                    <th>EMAIL</th>
+                    <th>TELÉFONO</th>
+                    <th>NIVEL</th>
+                    <th>PUNTOS</th>
+                    <th>VISITAS</th>
+                    <th>GASTADO</th>
+                    <th>ÚLTIMA VISITA</th>
+                    <th>ACCIÓN</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var c in clientes)
+                {
+                    var nivelColor = c.Nivel == "Oro" ? "badge--gold" :
+                                     c.Nivel == "Plata" ? "badge--blue" : "badge--gray";
+                    <tr>
+                        <td><strong>@c.Nombre</strong></td>
+                        <td>@c.Email</td>
+                        <td>@c.Telefono</td>
+                        <td><span class="badge @nivelColor">@c.Nivel</span></td>
+                        <td>@c.Puntos</td>
+                        <td>@c.Visitas</td>
+                        <td>Bs. @c.TotalGastado.ToString("F2")</td>
+                        <td>@c.UltimaVisita.ToString("dd/MM/yyyy HH:mm")</td>
+                        <td>
+                            <form method="post" action="/Fidelidad/SumarVisita" style="display:inline;">
+                                <input type="hidden" name="id" value="@c.Id" />
+                                <input type="number" name="gasto" placeholder="Gasto" style="width:70px; padding:4px;" required />
+                                <button type="submit" class="btn btn--sm btn--green">➕ Visita</button>
+                            </form>
+                            <button class="btn btn--sm btn--blue" onclick="abrirNota(@c.Id, '@c.Notas')">📝 Nota</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- MODAL: NUEVO CLIENTE -->
+<div class="modal-overlay" id="modalCliente" style="display:none;">
+    <div class="modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="margin:0; font-family: 'Georgia', serif;">⭐ NUEVO CLIENTE FIDELIDAD</h3>
+            <button type="button" onclick="cerrarModalCliente()"
+                    style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">
+                ✕
+            </button>
+        </div>
+        <form method="post" action="/Fidelidad/RegistrarCliente">
+            <div class="form-group">
+                <label>NOMBRE *</label>
+                <input type="text" name="nombre" required placeholder="Nombre completo" />
+            </div>
+            <div class="form-group">
+                <label>EMAIL</label>
+                <input type="email" name="email" placeholder="tu@email.com" />
+            </div>
+            <div class="form-group">
+                <label>TELÉFONO</label>
+                <input type="tel" name="telefono" placeholder="+591 7XXXXXXX" />
+            </div>
+            <div class="form-group">
+                <label>NOTAS (preferencias, alergias, etc.)</label>
+                <textarea name="notas" placeholder="Alergias, plato favorito, vino preferido..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button type="submit" class="btn btn--gold" style="flex: 1; padding: 12px;">✅ REGISTRAR</button>
+                <button type="button" class="btn btn--gray" onclick="cerrarModalCliente()" style="flex: 1; padding: 12px;">✕ CANCELAR</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- MODAL: NOTA -->
+<div class="modal-overlay" id="modalNota" style="display:none;">
+    <div class="modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="margin:0; font-family: 'Georgia', serif;">📝 NOTA DEL CLIENTE</h3>
+            <button type="button" onclick="cerrarModalNota()"
+                    style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">
+                ✕
+            </button>
+        </div>
+        <form method="post" action="/Fidelidad/AgregarNota">
+            <input type="hidden" name="id" id="notaClienteId" />
+            <div class="form-group">
+                <label>NOTA</label>
+                <textarea name="nota" id="notaTexto" rows="4" placeholder="Alergias, preferencias, observaciones..."></textarea>
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button type="submit" class="btn btn--gold" style="flex: 1; padding: 12px;">💾 GUARDAR</button>
+                <button type="button" class="btn btn--gray" onclick="cerrarModalNota()" style="flex: 1; padding: 12px;">✕ CANCELAR</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+    function abrirModalCliente() {
+        document.getElementById('modalCliente').style.display = 'flex';
+    }
+    function cerrarModalCliente() {
+        document.getElementById('modalCliente').style.display = 'none';
+    }
+    function abrirNota(id, nota) {
+        document.getElementById('notaClienteId').value = id;
+        document.getElementById('notaTexto').value = nota || '';
+        document.getElementById('modalNota').style.display = 'flex';
+    }
+    function cerrarModalNota() {
+        document.getElementById('modalNota').style.display = 'none';
+    }
+    // Cerrar modales al hacer clic fuera
+    document.addEventListener('click', function(e) {
+        var modal = document.getElementById('modalCliente');
+        if (modal && e.target === modal) modal.style.display = 'none';
+        var modal2 = document.getElementById('modalNota');
+        if (modal2 && e.target === modal2) modal2.style.display = 'none';
+    });
+</script>
+
+<style>
+    .alert--success {
+        background: #D1FAE5;
+        color: #065F46;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+
+    .alert--error {
+        background: #FEE2E2;
+        color: #991B1B;
+        padding: 12px;
+        border-radius: 8px;
+        margin-bottom: 15px;
+    }
+</style>

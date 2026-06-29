@@ -1,0 +1,297 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:.gitignore||{3B902123-F8A7-4915-9F01-361F908088D0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\baggu_restaurante.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:baggu_restaurante.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\render.yaml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:render.yaml||{06C066C6-04A2-4E5D-8202-439FD4234EF1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\views\\fidelidad\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:views\\fidelidad\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\controllers\\fidelidadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:controllers\\fidelidadcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\models\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:models\\models.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\views\\delivery\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:views\\delivery\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\controllers\\deliverycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:controllers\\deliverycontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:controllers\\homecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\views\\home\\registro.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:views\\home\\registro.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|c:\\users\\usuario\\desktop\\bagguweb\\bagguweb\\controllers\\reservascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{8AC8E314-09E2-CE17-8090-2B9A9B9EF021}|baggu_restaurante.csproj|solutionrelative:controllers\\reservascontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": ".gitignore",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\.gitignore",
+              "RelativeDocumentMoniker": ".gitignore",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\.gitignore",
+              "RelativeToolTip": ".gitignore",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001001|",
+              "WhenOpened": "2026-06-29T15:50:08.861Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "render.yaml",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\render.yaml",
+              "RelativeDocumentMoniker": "render.yaml",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\render.yaml",
+              "RelativeToolTip": "render.yaml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003775|",
+              "WhenOpened": "2026-06-29T15:33:59.827Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Admin\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Admin\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Admin\\Index.cshtml",
+              "RelativeToolTip": "Views\\Admin\\Index.cshtml",
+              "ViewState": "AgIAAEYCAAAAAAAAAAAcwGMCAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-29T00:58:21.849Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "AdminController.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\AdminController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\AdminController.cs",
+              "RelativeToolTip": "Controllers\\AdminController.cs",
+              "ViewState": "AgIAAOkAAAAAAAAAAAAmwAIBAAA1AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T20:01:38.929Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_Layout.cshtml",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Shared\\_Layout.cshtml",
+              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Shared\\_Layout.cshtml",
+              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
+              "ViewState": "AgIAACEAAAAAAAAAAAAAAD8AAAAfAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-29T00:05:46.985Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "Controllers\\HomeController.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "Controllers\\HomeController.cs",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAcwGUAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T20:00:22.727Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Models.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Models\\Models.cs",
+              "RelativeDocumentMoniker": "Models\\Models.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Models\\Models.cs",
+              "RelativeToolTip": "Models\\Models.cs",
+              "ViewState": "AgIAALgAAAAAAAAAAAA4wMkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T19:55:35.391Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T19:52:47.63Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "baggu_restaurante.csproj",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\baggu_restaurante.csproj",
+              "RelativeDocumentMoniker": "baggu_restaurante.csproj",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\baggu_restaurante.csproj",
+              "RelativeToolTip": "baggu_restaurante.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-06-28T19:30:43.014Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Delivery\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Delivery\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Delivery\\Index.cshtml",
+              "RelativeToolTip": "Views\\Delivery\\Index.cshtml",
+              "ViewState": "AgIAAMUAAAAAAAAAAAAmwOEAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-29T00:56:27.492Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "FidelidadController.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\FidelidadController.cs",
+              "RelativeDocumentMoniker": "Controllers\\FidelidadController.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\FidelidadController.cs",
+              "RelativeToolTip": "Controllers\\FidelidadController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T02:45:37.873Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Fidelidad\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Fidelidad\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Fidelidad\\Index.cshtml",
+              "RelativeToolTip": "Views\\Fidelidad\\Index.cshtml",
+              "ViewState": "AgIAAJYAAAAAAAAAAAAmwNEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-29T02:46:33.982Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Registro.cshtml",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Home\\Registro.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Registro.cshtml",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Home\\Registro.cshtml",
+              "RelativeToolTip": "Views\\Home\\Registro.cshtml",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAUwAwAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-29T00:46:50.415Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DeliveryController.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\DeliveryController.cs",
+              "RelativeDocumentMoniker": "Controllers\\DeliveryController.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\DeliveryController.cs",
+              "RelativeToolTip": "Controllers\\DeliveryController.cs",
+              "ViewState": "AgIAADYAAAAAAAAAAAAcwEEAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-29T00:55:52.159Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Home\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Views\\Home\\Index.cshtml",
+              "RelativeToolTip": "Views\\Home\\Index.cshtml",
+              "ViewState": "AgIAAB4AAAAAAAAAAAAAAEgAAAAdAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-06-28T19:32:13.766Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "ReservasController.cs",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\ReservasController.cs",
+              "RelativeDocumentMoniker": "Controllers\\ReservasController.cs",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\Controllers\\ReservasController.cs",
+              "RelativeToolTip": "Controllers\\ReservasController.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAmwCkAAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-06-28T20:03:07.664Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "C:\\Users\\Usuario\\Desktop\\BagguWeb\\BagguWeb\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAA+AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-06-28T19:54:48.608Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

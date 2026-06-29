@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - BAGGU</title>
+    <link rel="stylesheet" href="~/css/baggu.css" />
+</head>
+<body>
+
+    <!-- BARRA DE TÍTULO (simula la del WinForms) -->
+    <div class="topbar">
+        <span class="topbar-brand">🍽️ BAGGU — Restaurante</span>
+        <div class="topbar-actions">
+            @if (Context.Session.GetString("UsuarioNombre") != null)
+            {
+                <span class="topbar-user">👤 @Context.Session.GetString("UsuarioNombre")</span>
+                @if (Context.Session.GetString("UsuarioRol") == "Administrador")
+                {
+                    <a href="/Admin" class="topbar-btn">⚙️ Admin</a>
+                }
+                <a href="/Home/Logout" class="topbar-btn topbar-btn--danger">✕ Cerrar sesión</a>
+            }
+        </div>
+    </div>
+
+    <!-- HEADER / NAV -->
+    <header class="header">
+        <a href="/" class="header-logo">BAGGU</a>
+
+        <nav class="header-nav">
+            <a href="/Reservas" class="nav-link @(ViewContext.RouteData.Values["controller"]?.ToString() == "Reservas" ? "active" : "")">RESERVAS</a>
+            <a href="/Home#galeria" class="nav-link">GALERÍA</a>
+            <a href="/Home#donde" class="nav-link">DÓNDE ESTAMOS</a>
+            <a href="/Home#contacto" class="nav-link">CONTACTO</a>
+        </nav>
+
+        <div class="header-right">
+            @if (Context.Session.GetString("UsuarioNombre") == null)
+            {
+                <button class="btn-login-toggle" onclick="toggleLogin()">INICIAR SESIÓN</button>
+            }
+            else
+            {
+                <span class="header-user-badge">👤 @Context.Session.GetString("UsuarioNombre")</span>
+            }
+        </div>
+    </header>
+
+    <!-- PANEL LOGIN DESPLEGABLE -->
+    <div class="login-panel" id="loginPanel" style="display:none;">
+        <form method="post" action="/Home/Login">
+            <h3>INICIAR SESIÓN</h3>
+            @if (TempData["LoginError"] != null)
+            {
+                <div class="alert alert--error">@TempData["LoginError"]</div>
+            }
+            <label>Correo electrónico</label>
+            <input type="email" name="email" placeholder="admin@baggu.com" required />
+            <label>Contraseña</label>
+            <input type="password" name="password" placeholder="••••••••" required />
+            <button type="submit" class="btn btn--gold btn--full">INICIAR SESIÓN</button>
+            <!-- ✅ AGREGAR ESTE LINK -->
+            <p class="login-hint">
+                ¿No tienes cuenta? <a href="/Home/Registro" style="color:#D4AF37; font-weight:bold;">Regístrate aquí</a>
+            </p>
+        </form>
+    </div>
+
+    <!-- CONTENIDO PRINCIPAL -->
+    <main>
+        @RenderBody()
+    </main>
+
+    <!-- BOTÓN FLOTANTE DELIVERY -->
+    <a href="/Delivery" class="delivery-fab" title="Pedir a domicilio">🛵</a>
+
+    <script>
+        function toggleLogin() {
+            const p = document.getElementById('loginPanel');
+            p.style.display = p.style.display === 'none' ? 'block' : 'none';
+        }
+        // Cerrar login al hacer clic fuera
+        document.addEventListener('click', function(e) {
+            const panel = document.getElementById('loginPanel');
+            const btn = document.querySelector('.btn-login-toggle');
+            if (panel && btn && !panel.contains(e.target) && !btn.contains(e.target)) {
+                panel.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>

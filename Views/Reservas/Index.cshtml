@@ -1,0 +1,63 @@
+@{
+    ViewData["Title"] = "Reservas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="container container--narrow">
+        <h2 class="section-title">SOLICITAR RESERVA</h2>
+
+        @if (TempData["Exito"] != null)
+        {
+            <div class="alert alert--success">@TempData["Exito"]</div>
+        }
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert--error">@TempData["Error"]</div>
+        }
+
+        <form method="post" action="/Reservas/Crear" class="reserva-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label>COMENSALES *</label>
+                    <select name="Comensales" required>
+                        @for (int i = 1; i <= 20; i++)
+                        {
+                            <option value="@i">@i personas</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>FECHA *</label>
+                    <input type="date" name="Fecha" min="@DateTime.Now.ToString("yyyy-MM-dd")" required />
+                </div>
+                <div class="form-group">
+                    <label>HORA *</label>
+                    <input type="time" name="Hora" min="12:00" max="23:00" required />
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label>NOMBRE *</label>
+                    <input type="text" name="Nombre" placeholder="Tu nombre completo" required />
+                </div>
+                <div class="form-group">
+                    <label>EMAIL *</label>
+                    <input type="email" name="Email" placeholder="tu@email.com" required />
+                </div>
+                <div class="form-group">
+                    <label>TELÉFONO</label>
+                    <input type="tel" name="Telefono" placeholder="+591 7XXXXXXX" />
+                </div>
+            </div>
+
+            <div class="form-group form-group--full">
+                <label>NOTAS DE RESERVA (OPCIONAL)</label>
+                <textarea name="Notas" rows="3" placeholder="Alergias, fechas alternativas, ocasión especial..."></textarea>
+            </div>
+
+            <button type="submit" class="btn btn--gold btn--lg">SOLICITAR RESERVA →</button>
+        </form>
+    </div>
+</section>

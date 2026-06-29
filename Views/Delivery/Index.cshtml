@@ -1,0 +1,234 @@
+@using BagguWeb.Models
+@model List<Producto>
+@{
+    ViewData["Title"] = "Delivery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string categoriaActiva = ViewBag.Categoria ?? "Menu";
+}
+
+<section class="delivery-wrapper">
+    <div class="container">
+        <h2 class="section-title">🛵 PEDIDOS A DOMICILIO</h2>
+
+        <!-- Filtro de categorías -->
+        <div class="category-tabs">
+            @foreach (string cat in (string[])ViewBag.Categorias)
+            {
+                <a href="/Delivery?categoria=@cat"
+                   class="cat-tab @(categoriaActiva == cat ? "active" : "")">
+                    @cat
+                </a>
+            }
+        </div>
+
+        <!-- Grid de productos -->
+        <div class="products-grid">
+            @foreach (var p in Model)
+            {
+                <div class="product-card">
+                    <div class="product-icon">@p.Icono</div>
+                    <h3 class="product-name">@p.Nombre</h3>
+                    <p class="product-desc">@p.Descripcion</p>
+                    <div class="product-prices">
+                        <span class="price-offer">Bs. @p.Precio</span>
+                        @if (p.PrecioOriginal.HasValue && p.PrecioOriginal.Value > 0)
+                        {
+                            <span class="price-original">Bs. @p.PrecioOriginal.Value</span>
+                        }
+                    </div>
+                    <button class="btn btn--gold btn--full btn--sm"
+                            onclick="agregarAlCarrito(@p.Id, '@p.Nombre', @p.Precio)">
+                        ➕ Agregar
+                    </button>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- MODAL DE CONFIRMACIÓN DE PEDIDO -->
+<div class="modal-overlay" id="modalPedido" style="display:none;">
+    <div class="modal-content">
+        <h3>📦 CONFIRMAR PEDIDO</h3>
+        <form id="formPedido">
+            <div class="form-group">
+                <label>NOMBRE *</label>
+                <input type="text" id="clienteNombre" required placeholder="Tu nombre completo" />
+            </div>
+            <div class="form-group">
+                <label>EMAIL</label>
+                <input type="email" id="clienteEmail" placeholder="tu@email.com" />
+            </div>
+            <div class="form-group">
+                <label>TELÉFONO</label>
+                <input type="tel" id="clienteTelefono" placeholder="+591 7XXXXXXX" />
+            </div>
+            <div class="form-group">
+                <label>DIRECCIÓN DE ENTREGA *</label>
+                <input type="text" id="direccion" required placeholder="Calle, número, referencia" />
+            </div>
+            <div class="form-group">
+                <label>TOTAL</label>
+                <span id="totalPedido" style="font-size:24px; font-weight:bold; color:#D4AF37;">Bs. 0.00</span>
+            </div>
+            <button type="submit" class="btn btn--gold btn--full">✅ CONFIRMAR PEDIDO</button>
+            <button type="button" class="btn btn--gray btn--full" onclick="cerrarModal()">✕ CANCELAR</button>
+        </form>
+    </div>
+</div>
+
+<!-- CARRITO FLOTANTE -->
+<div class="cart-panel" id="cartPanel" style="display:none;">
+    <h3>🛒 Tu pedido</h3>
+    <div id="cartItems"><p class="cart-empty">Tu carrito está vacío</p></div>
+    <div class="cart-total">Total: <strong id="cartTotal">Bs. 0.00</strong></div>
+    <button class="btn btn--gold btn--full" onclick="mostrarModal()">CONFIRMAR PEDIDO</button>
+</div>
+
+<button class="cart-fab" onclick="toggleCart()" id="cartFab">🛒 <span id="cartCount">0</span></button>
+
+<script>
+    let carrito = [];
+
+    function agregarAlCarrito(id, nombre, precio) {
+        const item = carrito.find(i => i.id === id);
+        if (item) { item.cantidad++; }
+        else { carrito.push({ id, nombre, precio, cantidad: 1 }); }
+        actualizarCarrito();
+    }
+
+    function actualizarCarrito() {
+        const items = document.getElementById('cartItems');
+        const total = document.getElementById('cartTotal');
+        const count = document.getElementById('cartCount');
+
+        if (carrito.length === 0) {
+            items.innerHTML = '<p class="cart-empty">Tu carrito está vacío</p>';
+            total.textContent = 'Bs. 0.00';
+            count.textContent = '0';
+            return;
+        }
+
+        let html = '';
+        let sum = 0;
+        carrito.forEach(i => {
+            html += `<div class="cart-item">
+                <span>${i.nombre} x${i.cantidad}</span>
+                <span>Bs. ${(i.precio * i.cantidad).toFixed(2)}</span>
+                <button onclick="quitarItem(${i.id})">✕</button>
+            </div>`;
+            sum += i.precio * i.cantidad;
+        });
+        items.innerHTML = html;
+        total.textContent = `Bs. ${sum.toFixed(2)}`;
+        count.textContent = carrito.reduce((a, i) => a + i.cantidad, 0);
+    }
+
+    function quitarItem(id) {
+        carrito = carrito.filter(i => i.id !== id);
+        actualizarCarrito();
+    }
+
+    function toggleCart() {
+        const p = document.getElementById('cartPanel');
+        p.style.display = p.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function mostrarModal() {
+        if (carrito.length === 0) {
+            alert('⚠️ Tu carrito está vacío');
+            return;
+        }
+        const total = carrito.reduce((sum, i) => sum + i.precio * i.cantidad, 0);
+        document.getElementById('totalPedido').textContent = 'Bs. ' + total.toFixed(2);
+        document.getElementById('modalPedido').style.display = 'flex';
+        document.getElementById('cartPanel').style.display = 'none';
+    }
+
+    function cerrarModal() {
+        document.getElementById('modalPedido').style.display = 'none';
+    }
+
+    // Al confirmar el pedido
+    document.getElementById('formPedido').addEventListener('submit', async function(e) {
+        e.preventDefault();
+
+        const clienteNombre = document.getElementById('clienteNombre').value.trim();
+        const direccion = document.getElementById('direccion').value.trim();
+
+        if (!clienteNombre || !direccion) {
+            alert('⚠️ Complete los campos obligatorios (Nombre y Dirección)');
+            return;
+        }
+
+        const pedido = {
+            ClienteNombre: clienteNombre,
+            ClienteEmail: document.getElementById('clienteEmail').value.trim(),
+            ClienteTelefono: document.getElementById('clienteTelefono').value.trim(),
+            Direccion: direccion,
+            Total: carrito.reduce((sum, i) => sum + i.precio * i.cantidad, 0),
+            Items: carrito.map(i => ({ ProductoId: i.id, Nombre: i.nombre, Precio: i.precio, Cantidad: i.cantidad }))
+        };
+
+        try {
+            const response = await fetch('/Delivery/GuardarPedido', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(pedido)
+            });
+
+            const data = await response.json();
+            alert(data.message);
+
+            if (data.success) {
+                carrito = [];
+                actualizarCarrito();
+                cerrarModal();
+                // Recargar la página para resetear el estado
+                location.reload();
+            }
+        } catch (error) {
+            alert('❌ Error al enviar el pedido: ' + error.message);
+        }
+    });
+</script>
+
+<style>
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.7);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        z-index: 10000;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 450px;
+        width: 100%;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+        .modal-content h3 {
+            font-family: 'Georgia', serif;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+    .btn--gray {
+        background: #6B7280;
+        color: white;
+        margin-top: 10px;
+    }
+
+        .btn--gray:hover {
+            background: #4B5563;
+        }
+</style>

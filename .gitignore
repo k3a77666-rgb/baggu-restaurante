@@ -1,0 +1,14 @@
+﻿echo "# Archivos de Visual Studio" > .gitignore
+echo ".vs/" >> .gitignore
+echo "bin/" >> .gitignore
+echo "obj/" >> .gitignore
+echo "*.user" >> .gitignore
+echo "*.suo" >> .gitignore
+echo "*.pidb" >> .gitignore
+echo "*.userprefs" >> .gitignore
+echo "*.dbmdl" >> .gitignore
+echo "*.dbproj.schemaview" >> .gitignore
+echo "*.publishsettings" >> .gitignore
+echo "node_modules/" >> .gitignore
+echo "*.log" >> .gitignore
+echo "*.tmp" >> .gitignore

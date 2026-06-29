@@ -1,0 +1,80 @@
+@using BagguWeb.Models
+@{
+    ViewData["Title"] = "Fichas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var cola = (List<Ficha>)ViewBag.Cola;
+}
+
+<section class="section">
+    <div class="container container--two-col">
+
+        <!-- FORMULARIO REGISTRO -->
+        <div>
+            <h2 class="section-title">🎫 REGISTRO PRESENCIAL</h2>
+
+            @if (TempData["FichaGenerada"] != null)
+            {
+                <div class="alert alert--success ficha-result">
+                    <strong>🎫 FICHA GENERADA</strong><br />
+                    @TempData["FichaGenerada"]
+                </div>
+            }
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert--error">@TempData["Error"]</div>
+            }
+
+            <form method="post" action="/Fichas/GenerarFicha" class="reserva-form">
+                <div class="form-group">
+                    <label>NOMBRE *</label>
+                    <input type="text" name="nombre" placeholder="Tu nombre completo" required />
+                </div>
+                <div class="form-group">
+                    <label>N° DE PERSONAS</label>
+                    <select name="personas">
+                        @for (int i = 1; i <= 12; i++)
+                        {
+                            <option value="@i">@i</option>
+                        }
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>CÓDIGO VIP (opcional)</label>
+                    <input type="text" name="codigoVIP" placeholder="VIP2024XX" />
+                    <small>Ingresa tu código para acceso prioritario</small>
+                </div>
+                <button type="submit" class="btn btn--gold">OBTENER FICHA</button>
+            </form>
+        </div>
+
+        <!-- COLA DE ESPERA -->
+        <div>
+            <h2 class="section-title">👥 COLA DE ESPERA</h2>
+            @if (!cola.Any())
+            {
+                <p class="admin-empty">No hay personas en cola.</p>
+            }
+            else
+            {
+                <table class="admin-table">
+                    <thead>
+                        <tr><th>#</th><th>FICHA</th><th>NOMBRE</th><th>CATEGORÍA</th><th>PERSONAS</th></tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var f in cola)
+                        {
+                            <tr>
+                                <td>@f.Posicion</td>
+                                <td><strong>@f.Codigo</strong></td>
+                                <td>@f.Nombre</td>
+                                <td><span class="badge @(f.Categoria=="VIP"?"badge--gold":"badge--gray")">@f.Categoria</span></td>
+                                <td>@f.Personas</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+
+    </div>
+</section>

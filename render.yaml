@@ -1,0 +1,12 @@
+﻿services:
+  - type: web
+    name: baggu-restaurante
+    runtime: dotnet
+    plan: free
+    buildCommand: dotnet build
+    startCommand: dotnet run --project BagguWeb.csproj --urls "http://0.0.0.0:10000"
+    envVars:
+      - key: Supabase__Url
+        value: https://tu-proyecto.supabase.co
+      - key: Supabase__AnonKey
+        value: tu-anon-key

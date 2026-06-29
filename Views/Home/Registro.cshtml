@@ -1,0 +1,44 @@
+﻿@model BagguWeb.Models.RegistroViewModel
+@{
+    ViewData["Title"] = "Registro";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<section class="section">
+    <div class="container container--narrow">
+        <h2 class="section-title">📝 CREAR CUENTA</h2>
+
+        @if (TempData["Error"] != null)
+        {
+            <div class="alert alert--error">@TempData["Error"]</div>
+        }
+
+        <form method="post" action="/Home/Registro" class="reserva-form">
+            <div class="form-group">
+                <label>NOMBRE COMPLETO *</label>
+                <input type="text" name="NombreCompleto" placeholder="Tu nombre completo" required />
+            </div>
+
+            <div class="form-group">
+                <label>EMAIL *</label>
+                <input type="email" name="Email" placeholder="tu@email.com" required />
+            </div>
+
+            <div class="form-group">
+                <label>CONTRASEÑA *</label>
+                <input type="password" name="Password" placeholder="Mínimo 6 caracteres" required minlength="6" />
+            </div>
+
+            <div class="form-group">
+                <label>CONFIRMAR CONTRASEÑA *</label>
+                <input type="password" name="ConfirmPassword" placeholder="Repite tu contraseña" required minlength="6" />
+            </div>
+
+            <button type="submit" class="btn btn--gold btn--lg">REGISTRARSE</button>
+
+            <p class="login-hint" style="margin-top:15px;">
+                ¿Ya tienes cuenta? <a href="/Home/Index#login">Inicia sesión aquí</a>
+            </p>
+        </form>
+    </div>
+</section>

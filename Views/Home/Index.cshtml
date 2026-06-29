@@ -1,0 +1,77 @@
+@{
+    ViewData["Title"] = "Inicio";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-inner">
+        <p class="hero-sub">COCINA DE FUEGO · VALLE DE ATXONDO · BOLIVIA</p>
+        <h1 class="hero-title">BAGGU</h1>
+        <p class="hero-desc">Una visión singular del fuego. Experiencia única en Cochabamba.</p>
+        <a href="/Reservas" class="btn btn--gold btn--lg">RESERVAR MESA</a>
+    </div>
+</section>
+
+<!-- GALERÍA -->
+<section class="section" id="galeria">
+    <div class="container">
+        <h2 class="section-title">📸 GALERÍA</h2>
+        <div class="gallery-grid">
+            @foreach (var item in new[] {
+                new { Icono = "🍽️", Nombre = "Nuestros Platos" },
+                new { Icono = "🥩", Nombre = "Cortes Premium" },
+                new { Icono = "🍷", Nombre = "Bodega" },
+                new { Icono = "🔥", Nombre = "Cocina de Fuego" },
+                new { Icono = "🥗", Nombre = "Ensaladas" },
+                new { Icono = "🍮", Nombre = "Postres" },
+            })
+            {
+                <div class="gallery-card">
+                    <span class="gallery-icon">@item.Icono</span>
+                    <p class="gallery-name">@item.Nombre</p>
+                </div>
+            }
+        </div>
+    </div>
+</section>
+
+<!-- DÓNDE ESTAMOS -->
+<section class="section section--dark" id="donde">
+    <div class="container container--two-col">
+        <div>
+            <h2 class="section-title section-title--light">📍 DÓNDE ESTAMOS</h2>
+            <p class="info-text">Calle Libertad #123, Zona Central<br />Cochabamba — Bolivia</p>
+            <p class="info-text">📞 +591 4 1234567<br />✉️ info@baggu.com</p>
+        </div>
+        <div>
+            <h3 class="subsection-title">🕐 Horario</h3>
+            <table class="hours-table">
+                <tr><td>Lun — Jue</td><td>12:00 – 22:00</td></tr>
+                <tr><td>Vie — Sáb</td><td>12:00 – 23:00</td></tr>
+                <tr><td>Domingo</td><td>12:00 – 21:00</td></tr>
+            </table>
+        </div>
+    </div>
+</section>
+
+<!-- CONTACTO -->
+<section class="section" id="contacto">
+    <div class="container container--two-col">
+        <div>
+            <h2 class="section-title">📬 CONTACTO</h2>
+            <p class="info-text">
+                📍 Calle Libertad #123, Zona Central, Cochabamba<br />
+                📞 +591 4 1234567 &nbsp;·&nbsp; 📱 +591 71234567<br />
+                ✉️ info@baggu.com &nbsp;·&nbsp; 🌐 www.baggu.com
+            </p>
+        </div>
+        <div>
+            <h3 class="subsection-title">📱 Síguenos</h3>
+            <p class="info-text">
+                Instagram: <strong>baggu_restaurante</strong><br />
+                Facebook: <strong>/baggu.restaurante</strong>
+            </p>
+        </div>
+    </div>
+</section>

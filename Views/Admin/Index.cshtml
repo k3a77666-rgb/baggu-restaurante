@@ -1,0 +1,612 @@
+@using BagguWeb.Models
+@{
+    ViewData["Title"] = "Administración";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string tab = ViewBag.Tab ?? "mesas";
+    var mesas = (List<Mesa>)ViewBag.Mesas;
+    var cola = (List<Ficha>)ViewBag.Cola;
+    var platos = (List<Producto>)ViewBag.Platos;
+    var reservas = (List<Reserva>)ViewBag.Reservas;
+    var pedidosDelivery = ViewBag.PedidosDelivery as List<PedidoDelivery> ?? new List<PedidoDelivery>();
+    dynamic stats = ViewBag.Stats;
+}
+
+<div class="admin-wrapper">
+
+    <!-- SIDEBAR -->
+    <aside class="admin-sidebar">
+        <div class="admin-sidebar-title">👨‍🍳 ADMINISTRACIÓN</div>
+        <nav class="admin-nav">
+            @foreach (var item in new[] {
+                new { Key="mesas",    Label="📋 Mesas"    },
+                new { Key="cola",     Label="👥 Cola"     },
+                new { Key="reservas", Label="📅 Reservas" },
+                new { Key="platos",   Label="🍽️ Platos"  },
+                new { Key="stats",    Label="📊 Stats"    },
+                new { Key="fidelidad",Label="⭐ Fidelidad" },
+            })
+            {
+                <a href="@(item.Key == "fidelidad" ? "/Fidelidad" : $"/Admin?tab={item.Key}")"
+                   class="admin-nav-link @(tab == item.Key ? "active" : "")">
+                    @item.Label
+                </a>
+            }
+        </nav>
+    </aside>
+
+    <!-- CONTENIDO -->
+    <div class="admin-content">
+
+        @if (tab == "mesas")
+        {
+            <h2 class="admin-section-title">📋 GESTIÓN DE MESAS</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr><th>MESA</th><th>CAPACIDAD</th><th>ESTADO</th><th>CLIENTE</th><th>CATEGORÍA</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var m in mesas)
+                    {
+                        <tr>
+                            <td>Mesa @m.Id</td>
+                            <td>@m.Capacidad personas</td>
+                            <td><span class="badge @(m.Estado == "Ocupada" ? "badge--red" : "badge--green")">@m.Estado</span></td>
+                            <td>@m.Cliente</td>
+                            <td>@m.Categoria</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        @if (tab == "cola")
+        {
+            <!-- ============================================================ -->
+            <!-- 1. PEDIDOS DE DELIVERY -->
+            <!-- ============================================================ -->
+            <h2 class="admin-section-title">🛵 PEDIDOS A DOMICILIO</h2>
+
+            @if (!pedidosDelivery.Any())
+            {
+                <p class="admin-empty">No hay pedidos de delivery pendientes.</p>
+            }
+            else
+            {
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <th>DIRECCIÓN</th>
+                            <th>TOTAL</th>
+                            <th>ESTADO</th>
+                            <th>ACCIONES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var p in pedidosDelivery)
+                        {
+                            <tr>
+                                <td>@p.ClienteNombre</td>
+                                <td>@p.Direccion</td>
+                                <td><strong>Bs. @p.Total.ToString("F2")</strong></td>
+                                <td>
+                                    <span class="badge @(p.Estado == "Pendiente" ? "badge--gold" : p.Estado == "En Camino" ? "badge--blue" : "badge--green")">
+                                        @p.Estado
+                                    </span>
+                                </td>
+                                <td>
+                                    @if (p.Estado == "Pendiente")
+                                    {
+                                        <form method="post" action="/Admin/MarcarEnCamino" style="display:inline;">
+                                            <input type="hidden" name="id" value="@p.Id" />
+                                            <button type="submit" class="btn btn--sm btn--blue">🚚 En camino</button>
+                                        </form>
+                                    }
+                                    @if (p.Estado == "En Camino")
+                                    {
+                                        <form method="post" action="/Admin/MarcarEntregado" style="display:inline;">
+                                            <input type="hidden" name="id" value="@p.Id" />
+                                            <button type="submit" class="btn btn--sm btn--green">✅ Entregado</button>
+                                        </form>
+                                    }
+                                    @if (p.Estado == "Entregado")
+                                    {
+                                        <span style="color:#6B7280;">✅ Completado</span>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+            <!-- ============================================================ -->
+            <!-- 2. COLA DE CLIENTES PRESENCIALES -->
+            <!-- ============================================================ -->
+            <h2 class="admin-section-title" style="margin-top:30px;">👥 CLIENTES EN COLA</h2>
+
+            @if (!cola.Any())
+            {
+                <p class="admin-empty">No hay clientes en cola.</p>
+            }
+            else
+            {
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>FICHA</th>
+                            <th>NOMBRE</th>
+                            <th>CATEGORÍA</th>
+                            <th>PERSONAS</th>
+                            <th>MESA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var f in cola)
+                        {
+                            <tr>
+                                <td>@f.Posicion</td>
+                                <td><strong>@f.Codigo</strong></td>
+                                <td>@f.Nombre</td>
+                                <td>
+                                    <span class="badge @(f.Categoria == "VIP" ? "badge--gold" : f.Categoria == "IMPORTANTE" ? "badge--blue" : "badge--gray")">
+                                        @f.Categoria
+                                    </span>
+                                </td>
+                                <td>@f.Personas</td>
+                                <td>@f.Mesa</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+
+        @if (tab == "reservas")
+        {
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                <h2 class="admin-section-title" style="margin-bottom: 0;">📅 RESERVAS</h2>
+                <button class="btn btn--gold" onclick="abrirModalReserva()" style="padding: 10px 20px;">
+                    📞 + Nueva reserva
+                </button>
+            </div>
+
+            @if (!reservas.Any())
+            {
+                <p class="admin-empty">No hay reservas registradas aún.</p>
+            }
+            else
+            {
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>NOMBRE</th>
+                            <th>FECHA</th>
+                            <th>HORA</th>
+                            <th>COMENSALES</th>
+                            <th>TURNO</th>
+                            <th>MESA</th>
+                            <th>ESTADO</th>
+                            <th>⏰ ESPERA</th>
+                            <th>ACCIÓN</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var r in reservas.OrderBy(r => r.Fecha).ThenBy(r => r.Hora))
+                        {
+                            var estadoClase = r.Estado == "Pendiente" ? "badge--gold" :
+                                              r.Estado == "Confirmada" ? "badge--blue" :
+                                              r.Estado == "EnEspera" ? "badge--orange" :
+                                              r.Estado == "Llegado" ? "badge--green" :
+                                              r.Estado == "NoShow" ? "badge--red" : "badge--gray";
+
+                            // ⏰ Calcular tiempo de espera (2 minutos)
+                            string tiempoEspera = "-";
+                            if (r.Estado == "Confirmada" && r.FechaConfirmacion.HasValue)
+                            {
+                                var ahora = DateTime.Now;
+                                var minutosPasados = (ahora - r.FechaConfirmacion.Value).TotalMinutes;
+                                var minutosRestantes = Math.Round(2 - minutosPasados);
+                                tiempoEspera = minutosRestantes > 0 ? $"{minutosRestantes} min" : "⏰ Expirado";
+                            }
+
+                            <tr>
+                                <td>@r.Nombre</td>
+                                <td>@r.Fecha.ToString("dd/MM/yyyy")</td>
+                                <td>@r.Hora</td>
+                                <td>@r.Comensales</td>
+                                <td>@r.Turno</td>
+                                <td>@(r.MesaAsignada.HasValue ? $"Mesa {r.MesaAsignada}" : "-")</td>
+                                <td><span class="badge @estadoClase">@r.Estado</span></td>
+                                <td style="font-weight:bold; color: @(tiempoEspera.Contains("Expirado") ? "#DC3545" : "#D4AF37");">
+                                    @tiempoEspera
+                                </td>
+                                <td>
+                                    <div style="display:flex; gap:5px; flex-wrap:wrap;">
+                                        @if (r.Estado == "Pendiente" || r.Estado == "Confirmada")
+                                        {
+                                            <form method="post" action="/Admin/ConfirmarReserva" style="display:inline;">
+                                                <input type="hidden" name="id" value="@r.Id" />
+                                                <button type="submit" class="btn btn--sm btn--green">✅ Confirmar</button>
+                                            </form>
+
+                                            <form method="post" action="/Admin/AsignarMesa" style="display:inline;">
+                                                <input type="hidden" name="id" value="@r.Id" />
+                                                <select name="mesaId" class="select-sm">
+                                                    <option value="">Mesa</option>
+                                                    @foreach (var m in ViewBag.MesasDisponibles)
+                                                    {
+                                                        <option value="@m.Id">Mesa @m.Id</option>
+                                                    }
+                                                </select>
+                                                <button type="submit" class="btn btn--sm btn--blue">🪑 Asignar</button>
+                                            </form>
+                                        }
+
+                                        @if (r.Estado == "Confirmada" || r.Estado == "EnEspera")
+                                        {
+                                            <form method="post" action="/Admin/MarcarLlegada" style="display:inline;">
+                                                <input type="hidden" name="id" value="@r.Id" />
+                                                <button type="submit" class="btn btn--sm btn--gold">🚶 Llegó</button>
+                                            </form>
+                                        }
+
+                                        @if (r.Estado != "NoShow" && r.Estado != "Cancelada" && r.Estado != "Llegado")
+                                        {
+                                            <form method="post" action="/Admin/CancelarReserva" style="display:inline;">
+                                                <input type="hidden" name="id" value="@r.Id" />
+                                                <button type="submit" class="btn btn--sm btn--red" onclick="return confirm('¿Cancelar esta reserva?')">✕ Cancelar</button>
+                                            </form>
+                                        }
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        }
+
+        @if (tab == "platos")
+        {
+            <h2 class="admin-section-title">🍽️ GESTIÓN DE PLATOS</h2>
+            <table class="admin-table">
+                <thead>
+                    <tr><th>ID</th><th>PLATO</th><th>PRECIO</th><th>STOCK</th><th>TIEMPO</th></tr>
+                </thead>
+                <tbody>
+                    @foreach (var p in platos)
+                    {
+                        <tr>
+                            <td>@p.Id</td>
+                            <td>@p.Nombre</td>
+                            <td>Bs. @p.Precio.ToString("F2")</td>
+                            <td>@p.Stock</td>
+                            <td>@p.Descripcion</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        }
+
+        @if (tab == "stats")
+        {
+            <h2 class="admin-section-title">📊 ESTADÍSTICAS DEL DÍA</h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <span class="stat-icon">🪑</span>
+                    <span class="stat-value">@stats.MesasOcupadas/@stats.TotalMesas</span>
+                    <span class="stat-label">Mesas Ocupadas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">👥</span>
+                    <span class="stat-value">@stats.ColaTotal</span>
+                    <span class="stat-label">En Cola</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">💎</span>
+                    <span class="stat-value">@stats.ColaVIP</span>
+                    <span class="stat-label">Clientes VIP</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">📅</span>
+                    <span class="stat-value">@reservas.Count</span>
+                    <span class="stat-label">Reservas</span>
+                </div>
+                <div class="stat-card">
+                    <span class="stat-icon">🛵</span>
+                    <span class="stat-value">@pedidosDelivery.Count</span>
+                    <span class="stat-label">Pedidos Delivery</span>
+                </div>
+            </div>
+        }
+
+        @if (tab == "fidelidad")
+        {
+            <h2 class="admin-section-title">⭐ SISTEMA DE FIDELIDAD</h2>
+            <p class="admin-empty">Esta sección ha sido movida a su propia página.</p>
+            <a href="/Fidelidad" class="btn btn--gold">Ir a Fidelidad →</a>
+        }
+
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- MODAL PARA RESERVA TELEFÓNICA                                 -->
+<!-- ============================================================ -->
+<div class="modal-overlay" id="modalReservaTelefonica" style="display:none;">
+    <div class="modal-content">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+            <h3 style="margin:0; font-family: 'Georgia', serif;">📞 RESERVA TELEFÓNICA</h3>
+            <button type="button" onclick="cerrarModalReserva()"
+                    style="background: none; border: none; font-size: 24px; cursor: pointer; color: #999;">
+                ✕
+            </button>
+        </div>
+
+        <form method="post" action="/Admin/CrearReservaTelefonica" id="formReservaTelefonica">
+            <div class="form-group">
+                <label>NOMBRE *</label>
+                <input type="text" name="nombre" required placeholder="Nombre completo" />
+            </div>
+            <div class="form-group">
+                <label>TELÉFONO *</label>
+                <input type="tel" name="telefono" required placeholder="+591 7XXXXXXX" />
+            </div>
+            <div class="form-group">
+                <label>COMENSALES *</label>
+                <input type="number" name="comensales" required min="1" max="20" />
+            </div>
+            <div class="form-group">
+                <label>FECHA *</label>
+                <input type="date" name="fecha" required min="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group">
+                <label>HORA *</label>
+                <input type="time" name="hora" required />
+            </div>
+            <div class="form-group">
+                <label>NOTAS</label>
+                <textarea name="notas" placeholder="Alergias, ocasión especial..."></textarea>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button type="submit" class="btn btn--gold" style="flex: 1; padding: 12px;">
+                    ✅ CREAR RESERVA
+                </button>
+                <button type="button" class="btn btn--gray" onclick="cerrarModalReserva()" style="flex: 1; padding: 12px;">
+                    ✕ CANCELAR
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- SCRIPTS                                                      -->
+<!-- ============================================================ -->
+<script>
+    // ============================================================
+    // MODAL RESERVA TELEFÓNICA
+    // ============================================================
+
+    function abrirModalReserva() {
+        var modal = document.getElementById('modalReservaTelefonica');
+        if (modal) {
+            modal.style.display = 'flex';
+            var form = document.getElementById('formReservaTelefonica');
+            if (form) form.reset();
+            pausarTemporizador();
+        }
+    }
+
+    function cerrarModalReserva() {
+        var modal = document.getElementById('modalReservaTelefonica');
+        if (modal) {
+            modal.style.display = 'none';
+            reanudarTemporizador();
+        }
+    }
+
+    document.addEventListener('click', function(e) {
+        var modal = document.getElementById('modalReservaTelefonica');
+        if (modal && e.target === modal) {
+            modal.style.display = 'none';
+            reanudarTemporizador();
+        }
+    });
+
+    document.addEventListener('click', function(e) {
+        var modalContent = document.querySelector('.modal-content');
+        if (modalContent && modalContent.contains(e.target)) {
+            e.stopPropagation();
+        }
+    });
+
+    // ============================================================
+    // ⏰ TEMPORIZADOR CONTROLADO
+    // ============================================================
+    let temporizadorActivo = true;
+    let intervaloId = null;
+
+    function iniciarTemporizador() {
+        if (intervaloId) return;
+        intervaloId = setInterval(function() {
+            if (temporizadorActivo) {
+                var modal = document.getElementById('modalReservaTelefonica');
+                if (modal && modal.style.display === 'none') {
+                    fetch('/Admin/VerificarEstadoReservas')
+                        .then(response => {
+                            if (response.ok) {
+                                location.reload();
+                            }
+                        })
+                        .catch(error => console.error('Error al verificar reservas:', error));
+                }
+            }
+        }, 10000);
+    }
+
+    function pausarTemporizador() {
+        temporizadorActivo = false;
+    }
+
+    function reanudarTemporizador() {
+        temporizadorActivo = true;
+    }
+
+    iniciarTemporizador();
+
+    window.addEventListener('beforeunload', function() {
+        if (intervaloId) {
+            clearInterval(intervaloId);
+            intervaloId = null;
+        }
+    });
+</script>
+
+<!-- ============================================================ -->
+<!-- ESTILOS                                                      -->
+<!-- ============================================================ -->
+<style>
+    .modal-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 99999;
+    }
+
+    .modal-content {
+        background: white;
+        padding: 30px;
+        border-radius: 12px;
+        max-width: 480px;
+        width: 90%;
+        max-height: 90vh;
+        overflow-y: auto;
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        position: relative;
+    }
+
+        .modal-content h3 {
+            font-family: 'Georgia', serif;
+            color: #1A1A1A;
+            margin-bottom: 20px;
+        }
+
+        .modal-content .form-group {
+            margin-bottom: 15px;
+        }
+
+            .modal-content .form-group label {
+                display: block;
+                font-size: 12px;
+                font-weight: bold;
+                color: #3C3C3C;
+                margin-bottom: 4px;
+                letter-spacing: 0.5px;
+            }
+
+            .modal-content .form-group input,
+            .modal-content .form-group textarea {
+                width: 100%;
+                padding: 10px 12px;
+                border: 1px solid #E5E5E5;
+                border-radius: 4px;
+                font-family: 'Inter', sans-serif;
+                font-size: 14px;
+                background: #FAF8F5;
+                transition: border 0.3s;
+                box-sizing: border-box;
+            }
+
+                .modal-content .form-group input:focus,
+                .modal-content .form-group textarea:focus {
+                    outline: none;
+                    border-color: #D4AF37;
+                }
+
+            .modal-content .form-group textarea {
+                min-height: 60px;
+                resize: vertical;
+            }
+
+    .btn--full {
+        width: 100%;
+    }
+
+    .btn--gray {
+        background: #6B7280;
+        color: white;
+    }
+
+        .btn--gray:hover {
+            background: #4B5563;
+        }
+
+    .btn--gold {
+        background: #D4AF37;
+        color: white;
+    }
+
+        .btn--gold:hover {
+            background: #B8960F;
+        }
+
+    .btn--sm {
+        padding: 6px 12px;
+        font-size: 12px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+    }
+
+    .btn--blue {
+        background: #3B82F6;
+        color: white;
+    }
+
+        .btn--blue:hover {
+            background: #2563EB;
+        }
+
+    .btn--green {
+        background: #22C55E;
+        color: white;
+    }
+
+        .btn--green:hover {
+            background: #16A34A;
+        }
+
+    .btn--red {
+        background: #EF4444;
+        color: white;
+    }
+
+        .btn--red:hover {
+            background: #DC2626;
+        }
+
+    .select-sm {
+        padding: 4px 8px;
+        border-radius: 4px;
+        border: 1px solid #ddd;
+        font-size: 12px;
+        background: white;
+    }
+
+    .admin-empty {
+        color: #6B7280;
+        padding: 20px;
+        text-align: center;
+        font-style: italic;
+    }
+</style>
