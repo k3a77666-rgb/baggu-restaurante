@@ -20,12 +20,18 @@
                 </a>
             }
         </div>
-
+        <div class="voice-transcript" id="voiceTranscript"></div>
+        <button class="btn btn--sm voice-reset-btn" id="voiceResetBtn" style="display:none;" onclick="resetearBusquedaVoz()">
+            ✖ Ver todo el menú
+        </button>
         <!-- Grid de productos -->
-        <div class="products-grid">
+        <div class="products-grid" id="productsGrid">
             @foreach (var p in Model)
             {
-                <div class="product-card">
+                <div class="product-card"
+                     data-nombre="@p.Nombre"
+                     data-desc="@p.Descripcion"
+                     data-categoria="@p.Categoria">
                     <div class="product-icon">@p.Icono</div>
                     <h3 class="product-name">@p.Nombre</h3>
                     <p class="product-desc">@p.Descripcion</p>
@@ -87,8 +93,108 @@
 
 <button class="cart-fab" onclick="toggleCart()" id="cartFab">🛒 <span id="cartCount">0</span></button>
 
-<script>
-    let carrito = [];
+    <!-- BOTÓN FLOTANTE ASISTENTE DE VOZ -->
+    <button class="voice-fab" onclick="iniciarAsistenteVoz()" id="voiceFab" title="Buscar en el menú por voz">🎤</button>
+
+    <script>
+        let carrito = [];
+
+        /* ==================== ASISTENTE DE VOZ (Web Speech API) ==================== */
+
+        function normalizarTexto(str) {
+            return (str || '')
+                .toLowerCase()
+                .normalize('NFD')
+                .replace(/[\u0300-\u036f]/g, '')
+                .trim();
+        }
+
+        function hablar(texto) {
+            if (!('speechSynthesis' in window)) return;
+            window.speechSynthesis.cancel();
+            const utterance = new SpeechSynthesisUtterance(texto);
+            utterance.lang = 'es-ES';
+            utterance.rate = 1;
+            window.speechSynthesis.speak(utterance);
+        }
+
+        function iniciarAsistenteVoz() {
+            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+            const fab = document.getElementById('voiceFab');
+            const transcriptEl = document.getElementById('voiceTranscript');
+
+            if (!SpeechRecognition) {
+                alert('⚠️ Tu navegador no soporta reconocimiento de voz. Prueba con Google Chrome.');
+                return;
+            }
+
+            const reconocimiento = new SpeechRecognition();
+            reconocimiento.lang = 'es-BO';
+            reconocimiento.interimResults = false;
+            reconocimiento.maxAlternatives = 1;
+
+            fab.classList.add('listening');
+            transcriptEl.textContent = '🎙️ Escuchando... di el nombre de un plato';
+
+            reconocimiento.start();
+
+            reconocimiento.onresult = function (event) {
+                const texto = event.results[0][0].transcript;
+                transcriptEl.textContent = `🔎 Buscaste: "${texto}"`;
+                buscarProductoPorVoz(texto);
+            };
+
+            reconocimiento.onerror = function () {
+                transcriptEl.textContent = '⚠️ No pude escucharte, intenta de nuevo.';
+                hablar('No pude escucharte, intenta de nuevo.');
+            };
+
+            reconocimiento.onend = function () {
+                fab.classList.remove('listening');
+            };
+        }
+
+        function buscarProductoPorVoz(texto) {
+            const consulta = normalizarTexto(texto);
+            const palabras = consulta.split(' ').filter(p => p.length > 2);
+            const cards = document.querySelectorAll('#productsGrid .product-card');
+            const encontrados = [];
+
+            cards.forEach(function (card) {
+                const nombre = normalizarTexto(card.dataset.nombre);
+                const desc = normalizarTexto(card.dataset.desc);
+                const categoria = normalizarTexto(card.dataset.categoria);
+
+                const coincide = nombre.includes(consulta) ||
+                                  consulta.includes(nombre) ||
+                                  desc.includes(consulta) ||
+                                  categoria.includes(consulta) ||
+                                  palabras.some(p => nombre.includes(p) || desc.includes(p));
+
+                card.style.display = coincide ? '' : 'none';
+                card.classList.toggle('voice-highlight', coincide);
+                if (coincide) encontrados.push(card.dataset.nombre);
+            });
+
+            document.getElementById('voiceResetBtn').style.display = 'inline-block';
+
+            if (encontrados.length > 0) {
+                const lista = encontrados.slice(0, 3).join(', ');
+                hablar(`Encontré ${encontrados.length} resultado${encontrados.length > 1 ? 's' : ''} para ${texto}: ${lista}`);
+            } else {
+                hablar(`No encontré ningún producto relacionado con ${texto} en el menú.`);
+            }
+        }
+
+        function resetearBusquedaVoz() {
+            document.querySelectorAll('#productsGrid .product-card').forEach(function (card) {
+                card.style.display = '';
+                card.classList.remove('voice-highlight');
+            });
+            document.getElementById('voiceResetBtn').style.display = 'none';
+            document.getElementById('voiceTranscript').textContent = '';
+        }
+        /* =============================================================================== */
 
     function agregarAlCarrito(id, nombre, precio) {
         const item = carrito.find(i => i.id === id);

@@ -7,9 +7,13 @@ var builder = WebApplication.CreateBuilder(args);
 // 1. SERVICIOS MVC
 // ============================================================
 builder.Services.AddControllersWithViews();
-// ✅ AGREGAR ESTO PARA QUE RENDER PUEDA ASIGNAR EL PUERTO
-var port = Environment.GetEnvironmentVariable("PORT") ?? "10000";
-builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+// ✅ SOLO FORZAR EL PUERTO CUANDO ESTAMOS EN RENDER (variable PORT existe)
+// En local (Visual Studio) usará el puerto de launchSettings.json normalmente
+var port = Environment.GetEnvironmentVariable("PORT");
+if (!string.IsNullOrEmpty(port))
+{
+    builder.WebHost.UseUrls($"http://0.0.0.0:{port}");
+}
 // ============================================================
 // 2. SESIONES (para login)
 // ============================================================
